@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/usr/local/nginx/conf/nginx.conf
+  nginx_proxy:
+    image: nginx:latest
+    volumes:
+      - ./nginx_proxy.conf:/etc/nginx/nginx.conf
+      - ./test-images:/usr/share/nginx/html/images
+    ports:
+      - "81:81"
